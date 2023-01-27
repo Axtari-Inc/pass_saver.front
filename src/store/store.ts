@@ -1,19 +1,29 @@
-import {createStore} from "redux";
+import {combineReducers, createStore} from "redux";
+import {configureStore, createAction, createReducer, createSlice, PayloadAction} from "@reduxjs/toolkit";
 
-interface actionI {
-    type:string,
-    payload: number,
-}
-const action:actionI = {type: 'SWITCH_COUNT', payload: 0};
+
 const defaultState = {
     count: 5
 }
-const reducer = (state = defaultState, action:actionI) => {
-    switch (action.type) {
-        case 'SWITCH_COUNT':
-            // @ts-ignore
-            return {...state,count: action.payload}
-        default: return state
+
+const action1 =createAction('SWITCH_COUNT');
+
+
+const startSlice = createSlice({
+    name: 'toolkit',
+    initialState: {count:0},
+    reducers: {
+        increment(state,action){
+            state.count=action.payload;
+        }
     }
-}
- export const store = createStore(reducer)
+})
+
+const rootReducer = combineReducers({
+    toolkit: startSlice.reducer
+})
+
+ export const store = configureStore({
+     reducer: rootReducer,
+ })
+export const {increment} = startSlice.actions
