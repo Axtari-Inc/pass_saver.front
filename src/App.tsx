@@ -5,10 +5,11 @@ import AuthComponent from "./components/auth/auth.component";
 import {PasswordArea} from "./components/passwordArea/passwordArea.component";
 
 function App() {
+
     return (<>
             <header></header>
-                          
-        <PasswordArea/>
+
+            <PasswordArea />
         </>
     );
 }
