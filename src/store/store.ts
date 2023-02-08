@@ -5,7 +5,6 @@ import {
     createReducer,
     createSlice,
 } from "@reduxjs/toolkit";
-import {log} from "util";
 
 
 const defaultState = {
@@ -48,11 +47,5 @@ const rootReducer = combineReducers({
 export const store = configureStore({
     reducer: rootReducer,
 })
-store.subscribe(() => {
-    const data = store.getState().toolkit.data;
-    data.map(item=>console.log(`11111 ${item.id}`))
-    console.log(`data in sub ${data}`)
-    const sortData = data.sort((a,b)=>a.id-b.id);
-    store.dispatch(updateStore(sortData));
-})
+
 export const {saveDragStartElement, removeDragStartElement, updateStore} = startSlice.actions

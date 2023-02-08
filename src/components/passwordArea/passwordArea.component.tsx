@@ -1,7 +1,7 @@
 import React from 'react';
 import mAStyles from './passwordArea.module.scss'
 import {useDispatch, useSelector} from "react-redux";
-import {removeDragStartElement, saveDragStartElement} from "../../store/store";
+import {removeDragStartElement, saveDragStartElement, updateStore} from "../../store/store";
 
 export const PasswordArea = (props: any) => {
 
@@ -11,15 +11,19 @@ export const PasswordArea = (props: any) => {
     const dragStartElementId = useSelector(state => state.toolkit.dragStartElement);
     const dispatch = useDispatch();
 
-    function dropHandler(id: number) {
-        data.map((item: any) => {
+    function dropHandler(e:any,id: number) {
+        e.preventDefault();
+       let newData = data.map((item: any) => {
             if (item.id === id) {
-                item.id = dragStartElementId;
+            return     {...item, id:dragStartElementId};
             }
             if (dragStartElementId===item.id){
-                item.id=id;
+             return    {...item,id:id};
             }
         })
+        const sortData = newData.sort((a:any,b:any)=>a.id-b.id);
+
+        dispatch(updateStore(sortData));
     }
 
     function dragStartHandler(id: number) {
@@ -30,12 +34,17 @@ export const PasswordArea = (props: any) => {
         dispatch(removeDragStartElement());
     }
 
+    function dragOverHandler(e: React.DragEvent<HTMLDivElement>) {
+        e.preventDefault();
+    }
+
     const items = data.map((item: any) => {
-        return <div className={mAStyles.item}
+        return <div className={mAStyles.item} key={item.id}
                     draggable={true}
-                    onDrop={() => dropHandler(item.id)}
+                    onDrop={(e) => dropHandler(e, item.id)}
                     onDragStart={() => dragStartHandler(item.id)}
-                    onDragEnd={() => dragEndHandler()}>
+                    onDragEnd={() => dragEndHandler()}
+                    onDragOver={(e) => dragOverHandler(e)}>
             <img src={item.img} alt={''}/>
             <span className={mAStyles.block}>{item.title}</span>
         </div>
