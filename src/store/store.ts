@@ -17,6 +17,10 @@ const defaultState = {
             id: 2,
             img: 'https://w7.pngwing.com/pngs/244/820/png-transparent-games-gaming-squircle-world-of-tanks-wot-popular-games-icon.png',
             title: 'title2'
+        }, {
+            id: 3,
+            img: 'https://cdnb.artstation.com/p/assets/images/images/003/638/701/large/yusif-alomeri-dota-emoticons-icon-circle.jpg?1475880618',
+            title: 'title3'
         }
     ],
     dragStartElement: null,

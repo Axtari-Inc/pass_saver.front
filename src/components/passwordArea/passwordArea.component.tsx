@@ -20,9 +20,9 @@ export const PasswordArea = (props: any) => {
             if (dragStartElementId===item.id){
              return    {...item,id:id};
             }
+            return {...item}
         })
         const sortData = newData.sort((a:any,b:any)=>a.id-b.id);
-
         dispatch(updateStore(sortData));
     }
 
